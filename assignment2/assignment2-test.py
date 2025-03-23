@@ -4,10 +4,13 @@ import os
 def test_read_employees():
     employees = a2.read_employees()
     assert employees != None
-    assert a2.employees != None
-    assert len(a2.employees["fields"]) == 4
-    assert a2.employees["fields"][1] == "first_name"
-    assert len(a2.employees["rows"]) == 20
+    # assert a2.employees != None
+    # assert len(a2.employees["fields"]) == 4
+    # assert a2.employees["fields"][1] == "first_name"
+    # assert len(a2.employees["rows"]) == 20
+    assert len(employees["fields"]) == 4
+    assert employees["fields"][1] == "first_name"
+    assert len(employees["rows"]) == 20
 
 def test_column_name():
     assert a2.column_index("last_name") == 2

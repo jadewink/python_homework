@@ -9,7 +9,7 @@ try:
             file.write(question + '\n')
             if question.lower() == "done for now": 
                 break
-            
+
 except EOFError:
         print("End of input reached.")
 
@@ -24,4 +24,3 @@ except Exception as e:
     if message:
         print(f"Exception message: {message}")
     print(f"Stack trace: {stack_trace}")    
-    
