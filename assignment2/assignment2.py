@@ -59,3 +59,12 @@ def sort_by_last_name():
 sort_by_last_name()
 
 # Task 8: Create a dict for an Employee
+def employee_dict(row):
+    keys = employees["fields"]
+    row.pop(0)
+    keys.pop(0)
+    employee_dict = dict(zip(keys, row))
+    print(employee_dict)
+    return employee_dict
+
+employee_dict(employees["rows"][0])
