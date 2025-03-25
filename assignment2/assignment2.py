@@ -1,6 +1,7 @@
 import csv
 employees = {}
 employee_id_column = 0
+employee_ids_all = []
 
 #Task 2 Read a CSV file
 def read_employees():
@@ -37,7 +38,6 @@ def first_name(row):
 first_name(13)
 
 # Task 5: Find the Employee: a Function in a Function
-
 def employee_find(employee_id):
     def employee_match(row):
         return int(row[employee_id_column]) == employee_id
@@ -60,11 +60,12 @@ sort_by_last_name()
 
 # Task 8: Create a dict for an Employee
 def employee_dict(row):
-    keys = employees["fields"]
-    row.pop(0)
-    keys.pop(0)
-    employee_dict = dict(zip(keys, row))
-    print(employee_dict)
+    employee_dict = {key: value for key, value in zip(employees["fields"][1:], row[1:])}
     return employee_dict
-
 employee_dict(employees["rows"][0])
+
+# Task 9: A dict of dicts, for All Employees
+def all_employees_dict():
+    all_employees_dict = {row[0]: employee_dict(row) for row in employees["rows"]}
+    return all_employees_dict
+all_employees_dict()
