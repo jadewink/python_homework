@@ -7,6 +7,7 @@ employee_id_column = 0
 employee_ids_all = []
 minutes1 = {}
 minutes2 = {}
+minutes_set = []
 
 #Task 2 Read a CSV file
 def read_employees():
@@ -112,5 +113,11 @@ def read_minutes():
     minutes2 = build_dict('../csv/minutes2.csv')
 
     return minutes1, minutes2
-
 read_minutes()
+
+# Task 13: Create minutes_set
+def create_minutes_set():
+    minutes = read_minutes()
+    minutes_set = set(minutes[0]["rows"]).union(set(minutes[1]["rows"]))
+    return minutes_set
+create_minutes_set()
