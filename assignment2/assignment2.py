@@ -1,5 +1,7 @@
 import csv
 import os
+import custom_module
+
 employees = {}
 employee_id_column = 0
 employee_ids_all = []
@@ -74,5 +76,10 @@ all_employees_dict()
 # Task 10: Use the os Module
 def get_this_value():
     return os.environ.get('THISVALUE')
-
 get_this_value()
+
+# Task 11: Creating Your Own Module
+def set_that_secret(new_secret):
+    custom_module.set_secret(new_secret)
+    print(custom_module.secret)
+set_that_secret("bibbitybobbityboo")
