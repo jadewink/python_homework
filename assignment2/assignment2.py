@@ -5,6 +5,8 @@ import custom_module
 employees = {}
 employee_id_column = 0
 employee_ids_all = []
+minutes1 = {}
+minutes2 = {}
 
 #Task 2 Read a CSV file
 def read_employees():
@@ -81,5 +83,34 @@ get_this_value()
 # Task 11: Creating Your Own Module
 def set_that_secret(new_secret):
     custom_module.set_secret(new_secret)
-    print(custom_module.secret)
+    # print(custom_module.secret)
 set_that_secret("bibbitybobbityboo")
+
+# Task 12: Read minutes1.csv and minutes2.csv
+def read_minutes():
+    def build_dict(file):
+        minutes_rows = []
+        minutes_dict = {}
+        #read csv file
+        with open(file, 'r') as file:
+            try:
+                reader = csv.reader(file)
+                header = next(reader)
+                #set header row in dictionary
+                minutes_dict["fields"] = header
+                #append each row of data as a tuple
+                for row in reader:
+                    minutes_rows.append(tuple(row))
+            except Exception as e:
+                print(f"An error occurred reading the file: {e}")
+        # add the list of rows to the minutes dictionary
+        minutes_dict["rows"] = minutes_rows
+
+        return minutes_dict
+        
+    minutes1 = build_dict('../csv/minutes1.csv')
+    minutes2 = build_dict('../csv/minutes2.csv')
+
+    return minutes1, minutes2
+
+read_minutes()
