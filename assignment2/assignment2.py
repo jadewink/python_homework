@@ -126,6 +126,25 @@ create_minutes_set()
 
 # Task 14: Convert to datetime
 def create_minutes_list():
-    minutes_list = tuple(create_minutes_set())
-    return list(map(lambda minute_set: (minutes_list[0], datetime.strptime(minutes_list[0][1], "%B %d, %Y")), minutes_list))
+    minutes_list = list(create_minutes_set())
+    return list(map(lambda x: (x[0], datetime.strptime(x[1], "%B %d, %Y")), minutes_list))
 create_minutes_list()
+
+# Task 15: Write Out Sorted List
+def write_sorted_list():
+    minutes1 = read_minutes()
+    minutes_list = create_minutes_list()
+    minutes_list.sort(key=lambda x: (datetime.strftime(x[1], "%B %d, %Y")), reverse=True)
+    minutes_list = list(map(lambda x: (x[0], datetime.strftime(x[1], "%B %d, %Y")), minutes_list))
+    minutes1 = minutes1[0]
+
+    with open('./minutes.csv', 'w', newline='') as file:
+        writer = csv.writer(file)
+        try: 
+            writer.writerow(minutes1["fields"])
+            for row in minutes_list:
+                writer.writerow(row)
+        except Exception as e:
+            print(f"An error occurred writing to the file: {e}")
+    return minutes_list
+write_sorted_list()
