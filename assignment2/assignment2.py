@@ -1,4 +1,5 @@
 import csv
+import os
 employees = {}
 employee_id_column = 0
 employee_ids_all = []
@@ -69,3 +70,9 @@ def all_employees_dict():
     all_employees_dict = {row[0]: employee_dict(row) for row in employees["rows"]}
     return all_employees_dict
 all_employees_dict()
+
+# Task 10: Use the os Module
+def get_this_value():
+    return os.environ.get('THISVALUE')
+
+get_this_value()
