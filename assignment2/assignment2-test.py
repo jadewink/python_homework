@@ -8,6 +8,7 @@ def test_read_employees():
     assert len(a2.employees["fields"]) == 4
     assert a2.employees["fields"][1] == "first_name"
     assert len(a2.employees["rows"]) == 20
+    #This assert is calling and creating the employees dictionary over and over, this seems unneccessary.
 
 def test_column_name():
     assert a2.column_index("last_name") == 2
