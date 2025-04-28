@@ -58,27 +58,3 @@ except sqlite3.OperationalError as conn_err:
     ("Connection Error")
 # The "with" statement closes the connection at the end of that block.  You could close it explicitly with conn.close(), but in this case
 # the "with" statement takes care of that.
-    
-
-#Task 2 - Create Tables
-# Connect to the database
-# try:
-#     with sqlite3.connect("../db/magazines.db") as conn:
-        # cursor = conn.cursor()
-
-        # # Create tables
-        # cursor.execute("""
-        # CREATE TABLE Publishers (
-        #     publisher_id INTEGER PRIMARY KEY,
-        #     publisher_name TEXT NOT NULL UNIQUE
-        # )
-        # """)
-
-
-
-#         conn.commit() 
-
-#         print("Tables created successfully.")
-
-# except: 
-#     print("Error creating tables")
