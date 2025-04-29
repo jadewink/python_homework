@@ -48,12 +48,6 @@ try:
 
         print("Tables created successfully.")
 
-    # try:
-    #     # Inner operation
-    #     print("Tables created successfully.")
-    # except sqlite3.OperationalError as query_err:
-    #         # Handle query errors while maintaining connection
-    #         ("Query Error")
 except sqlite3.OperationalError as conn_err:
     # Handle connection failures
     ("Connection Error")
@@ -108,6 +102,7 @@ add_publishers('Books Books Books and Many More Books')
 add_magazines('Impossible Fruit Pies', 1)  
 add_magazines('Majestic Cars', 2)
 add_magazines('Friends and Farm', 3)
+add_magazines('Magic Money', 1)
 
 add_subscribers('Mad Hatter','1234 Crazy St Seattle, WA 98195') 
 add_subscribers('Alice Small','5678 Potion St Seattle, WA 98193')
@@ -116,3 +111,31 @@ add_subscribers('Queen of Hearts','666 Red Ave Seattle, WA 98459')
 add_subscriptions('01/01/2027', 1, 1) 
 add_subscriptions('10/01/2026', 2, 2) 
 add_subscriptions('05/05/2029', 3, 3) 
+
+# Task 4 - Write SQL Queries
+# Write a query to retrieve all information from the subscribers table.
+try:     
+    cursor.execute("select * from subscribers")
+    result = cursor.fetchall()
+    for row in result:
+        print(row)
+except sqlite3.Error:
+    print("Query Error")
+
+# Write a query to retrieve all magazines sorted by name.
+try:     
+    cursor.execute("select * from magazines order by magazine_name")
+    result = cursor.fetchall()
+    for row in result:
+        print(row)
+except sqlite3.Error:
+    print("Query Error")
+
+# Write a query to find magazines for a particular publisher, one of the publishers you created. This requires a JOIN.
+try:     
+    cursor.execute("select * from magazines m join publishers p on m.publisher_id = p.publisher_id where p.publisher_name = 'Practical Publishing'")
+    result = cursor.fetchall()
+    for row in result:
+        print(row)
+except sqlite3.Error:
+    print("Query Error")    
