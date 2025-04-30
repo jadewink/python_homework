@@ -139,3 +139,5 @@ try:
         print(row)
 except sqlite3.Error:
     print("Query Error")    
+
+# Task 6 (even though its actually task 5, it is misnumbered in the assignment)
