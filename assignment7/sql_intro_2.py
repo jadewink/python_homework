@@ -20,13 +20,11 @@ print(df.head(5))
 # and 'first' for the 'product_name'. Print out the first 5 lines of the resulting DataFrame. Run the program to see if it is correct so far.
 line_item_id = df.agg(["count"])
 total = df.agg(["sum"])
-# product_name = df.agg("first")
 df.groupby('product_id').agg({'line_item_id': 'count', 'total':'sum', 'product_name':'first'})
-# product_name = df.first(["product_name"])
 print(df.head(5))
+
 # Sort the DataFrame by the product_name column.
 df.sort_values(by='product_name', ascending=False, inplace=True)
-# print(df.head(5))
-df.to_csv('order_summary.csv', index=False)
+
 # Add code to write this DataFrame to a file order_summary.csv, which should be written in the assignment7 directory. 
-# Verify that this file is correct.
+df.to_csv('order_summary.csv', index=False)

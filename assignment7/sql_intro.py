@@ -94,7 +94,6 @@ def add_subscriptions(expiration_date, subscriber_id, magazine_id):
 
 # Add code to the main line of your program to populate each of the 4 tables with at least 3 entries. Don't forget the commit!
 # Insert sample data into tables
-
 add_publishers('Practical Publishing')  
 add_publishers('Apple Dapple Books')  
 add_publishers('Books Books Books and Many More Books')
