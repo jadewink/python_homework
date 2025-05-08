@@ -1,6 +1,8 @@
 import sqlite3
+from datetime import datetime
 
 # Task 1
+print("Task 1")
 # Connect to the database
 conn = sqlite3.connect("../db/lesson.db")
 cursor = conn.cursor()
@@ -27,7 +29,7 @@ print(results)
 conn.close()
 
 # Task 2
-
+print("Task 2")
 # Connect to the database
 conn = sqlite3.connect("../db/lesson.db")
 cursor = conn.cursor()
@@ -61,7 +63,7 @@ print(results)
 conn.close()
 
 # Task 3
-
+print("Task 3")
 # Connect to the database
 conn = sqlite3.connect("../db/lesson.db")
 cursor = conn.cursor()
@@ -77,21 +79,17 @@ SELECT c.customer_id
 FROM customers c
 WHERE c.customer_name = 'Perez and Sons';
 """
-# Execute and fetch results
 cursor.execute(query)
-customer_id = cursor.fetchall()
+result = cursor.fetchone()
+customer_id = result[0]
 print(customer_id)
 
 # another to retrieve the product_ids of the 5 least expensive products
-query = """
-SELECT p.product_id, p.price
-FROM products p
-ORDER BY p.price ASC
-LIMIT 5;
-"""
-# Execute and fetch results
+#Note: I switched this back to ASC, as DESC was returning the most expensive products.
+query = """SELECT product_id FROM products ORDER BY price ASC LIMIT 5"""
 cursor.execute(query)
-product_id = cursor.fetchall()
+result = cursor.fetchall()
+product_id = result
 print(product_id)
 
 # and another to retrieve the employee_id
@@ -101,41 +99,47 @@ FROM employees
 WHERE first_name = 'Miranda'
 AND last_name = 'Harris';
 """
-
 cursor.execute(query)
-employee_id = cursor.fetchall()
+result = cursor.fetchone()
+employee_id = result[0]
 print(employee_id)
 
-conn.close()
+# conn.close()
 
 # Then, you create the order record and the 5 line_item records comprising the order.  
 # You have to use the customer_id, employee_id, and product_id values you obtained from the SELECT statements. 
 # You have to use the order_id for the order record you created in the line_items records. 
 # The inserts must occur within the scope of one transaction.
 
-conn = sqlite3.connect("../db/lesson.db")
-cursor = conn.cursor()
-
 try:
-    # cursor.execute("INSERT INTO Orders (customer_id, employee_id, date) VALUES (16, 7, CURRENT_TIMESTAMP);")
-    print("nothing")
-    cursor.execute("INSERT INTO Orders (customer_id, employee_id, date) VALUES (customer_id = ?;", (customer_id,))
-    # cursor.execute("INSERT INTO Line_items (order_id, product_id, quantity) VALUES((SELECT o.order_id from Orders o ORDER BY date DESC LIMIT 1), (SELECT p.product_id FROM products p ORDER BY p.price ASC LIMIT 5), 10);")
-    conn.commit()  # Commit transaction
+    current_date = datetime.now()
+    query = f"""INSERT INTO Orders (customer_id, employee_id, date) VALUES (?,?,current_date) RETURNING order_id"""
+    cursor.execute(query,(customer_id, employee_id,))
+    result = cursor.fetchone()
+
+    order_id = result[0]
+    values = []
+    value_list = []
+
+    for i in range(5):
+        values.append("(?,?, 10)")
+        value_list.append(order_id)
+        value_list.append(product_id[i][0]) # The product ids we want
+
+    values_string = ",".join(values)  
+    query = f"""INSERT INTO line_items (order_id, product_id, quantity) VALUES {values_string};"""
+    cursor.execute(query, value_list)  
+    conn.commit()
 except Exception as e:
     conn.rollback()  # Rollback transaction if there's an error
     print("Error:", e)
 
-conn.close()
-
 # Then, using a SELECT with a JOIN, print out the list of line_item_ids for the order along with the quantity and product name for each.
-conn = sqlite3.connect("../db/lesson.db")
-cursor = conn.cursor()
-
 try:
-    # cursor.execute("DELETE from Orders where order_id in (250, 251, 252, 253, 254, 255, 256)")
-    # cursor.execute("DELETE from line_items where line_item_id in (1110, 1111, 1112, 1113, 1114, 1115, 1116, 1117, 1118, 1119, 1120, 1121)")
-    # cursor.execute("INSERT INTO Line_items (order_id, product_id, quantity) SELECT o.order_id from Orders o ORDER BY date DESC LIMIT 1, SELECT p.product_id FROM products p ORDER BY p.price ASC LIMIT 5, 10") 
+    query = f"""SELECT li.line_item_id, li.quantity, p.product_name FROM line_items li join products p on li.product_id = p.product_id WHERE li.order_id = {order_id};"""
+    cursor.execute(query)
+    result = cursor.fetchall()
+    print("result",result)
     conn.commit()  # Commit transaction
 except Exception as e:
     conn.rollback()  # Rollback transaction if there's an error
@@ -144,6 +148,7 @@ except Exception as e:
 conn.close()
 
 #Task 4
+print("Task 4")
 # Find all employees associated with more than 5 orders.  You want the first_name, the last_name, and the count of orders.  You need to do a 
 # JOIN on the employees and orders tables, and then use GROUP BY, COUNT, and HAVING.
 
