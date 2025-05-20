@@ -1,0 +1,11 @@
+# Task 5: Ethical Web Scraping
+Which sections of the website are restricted for crawling?
+Anything annotated by disallow followed by a directory path
+
+Are there specific rules for certain user agents?
+When a user agent is supplied in a robots.txt the disallow that follows prevents that specific user agent from those specific directories.
+If the user agent is * then the disallow that follows refers to any/all crawlers.
+
+These widely standardized rules help promote ethical scraping so that personal data or private comments 
+or things that just generally don't need to live in search results are protected and can remain somewhat private while allowing other levels
+of data to be crawled and detailed in search results. It allows for protection and publicity to exist side by side.
