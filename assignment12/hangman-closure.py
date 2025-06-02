@@ -1,3 +1,4 @@
+# Task 4: Closure Practice
 def make_hangman(secret_word):
     guesses = [' ']  # Start with space as a "guessed" character
 
