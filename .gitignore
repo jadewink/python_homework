@@ -6,3 +6,12 @@ __pycache__/
 .vscode
 CACHEDIR.TAG
 .venv/
+assignment8/queries.sql
+final project/mlb_data_dashboard_new.py
+final project/chrome-mac-x64
+.DS_Store
+results.csv
+final project/mlb_cleaned_data.csv
+final project/mlb_data_checkpoint_20250614_190705.csv
+final project/mlb_historical_data.csv
+final project/MLB_runner.py
